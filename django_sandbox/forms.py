@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+import re
 
 class LoginForm(forms.Form):
     username=forms.CharField()
@@ -21,6 +22,8 @@ class RegisterForm(forms.Form):
     
     def clean_username(self):
         username=self.cleaned_data['username']
+        if not re.match("^[a-zA-Z_]*$", username):
+            raise forms.ValidationError("Username can only contain characters and Underscore ( _ )")
         try:
             User.objects.get(username=username)
         except User.DoesNotExist:

@@ -5,7 +5,8 @@ Site up at http://djangosandbox.alwaysdata.net
 The purpose of this site was just to learn web-dev with Django and Python from *Development to Deployment*.
 
 **Description:**
-* This simple, **Profiles oriented **, Django powered website implements basic website tools such as Login and Register along with certain privileges to users.
+
+* This simple, **Profiles oriented**, Django powered website implements basic website tools such as Login and Register along with certain privileges to users.
 * The privileges are such that it allows an authorized user to Edit their own profile details, change their login password. Every user is also allowed to view other user’s profile.
 * Unauthorized users do not have any privileges apart from viewing other profiles.
 * Viewing other profiles will not allow editing or changing passwords. Authorized users can only view the details, logout or choose to go back to own profile.

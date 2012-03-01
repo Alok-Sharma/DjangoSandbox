@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}Django Sandbox- Login{%endblock%}
+
+{% block content %}
+    {% if form.errors %}
+        <p style="color:red;">
+        	Please Correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+        <table>
+        	{{ form.as_table }}
+        </table>
+        <input type="submit" value="Login">
+    </form>
+New User? <a href="/accounts/register/">Register Now</a>
+{% endblock %}

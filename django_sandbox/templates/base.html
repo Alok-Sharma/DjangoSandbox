@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title>Django Sandbox- {% block title %}{% endblock %}</title>
+</head>
+<div id="container" style="min-height:100%;position:relative;">
+<div id="header"">
+</div>
+<div id="body" style="padding-bottom:40px" >
+<body bgcolor="#336644" style="font-family:dotum;margin:0;padding:0;height:100%;">
+	<img src="{{MEDIA_URL}}django.png" align="right"/>
+	<h1 style="font-family:dotum;">{% block head %}{%endblock%}</h1>
+	{% block content %}
+	{% endblock %}
+	<br>
+</div>
+<div id="footer" style="position:absolute;bottom:0;right:0;height:30px">
+<a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangosite100x25.gif" border="0" alt="A Django site." title="A Django site." /></a></div>
+</div>
+</body>
+</html>

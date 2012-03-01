@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title%}{{user.first_name}}'s Profile {%endblock%}
+
+
+{%block head%}{{user.first_name}} {{user.last_name}}'s Profile Page at the Django Sandbox{%endblock%}
+{% block content %}
+<p>
+{% if viewer.is_authenticated and viewer.username == user.username %}
+Welcome, {{ user.first_name }}<br><br>
+{% endif %}
+Username: {{user.username}}<br>
+Name: {{ user.first_name }} {{user.last_name}}<br>
+E-Mail: {{user.email}}
+
+</p>
+<br><br>
+<p>
+
+{% if viewer.is_authenticated and viewer.username == user.username %}
+ <a href="/accounts/logout">Logout</a> | <a href="/accounts/profile/{{user.username}}/edit">Edit Details</a> | <a href="/accounts/profile/{{user.username}}/change_password">Change Password</a>
+{%endif%}
+{% if viewer.is_authenticated and viewer.username != user.username %}
+<a href="/accounts/logout">Logout</a> | <a href="/accounts/profile/{{viewer.username}}">Back to profile</a>
+{% else %}
+</p>
+{% endif %}
+<br><br>
+Profiles on the Sandbox:
+<ul>
+	{% for others in all_users %}
+	<li><a href="/accounts/profile/{{others.username}}">{{ others.username }}</a></li>
+	{% endfor %}
+</ul>
+
+{%endblock%}

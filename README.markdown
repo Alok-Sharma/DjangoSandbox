@@ -1,6 +1,7 @@
 # Django Sandbox#
 
 Site up at http://djangosandbox.alwaysdata.net
+**Site down at the moment. Implementing OpenID.**
 
 The purpose of this site was just to learn web-dev with Django and Python from *Development to Deployment*. PyDev for Eclipse was used.
 

@@ -2,6 +2,16 @@
 {% block title%}{{user.first_name}}'s Profile {%endblock%}
 
 
+{% if viewer.is_authenticated %}
+{% block topbar %}
+	<li><a href="/account/logout/">Sign Out</a></li>
+{% endblock topbar %}
+	{% block userid %}
+	<div style="float:right;color:white;margin-top:10px;margin-left:0px">Logged in as <a href="/">{{ viewer.username }}</a></div>
+	{% endblock userid %}
+{% endif %}
+
+
 {%block head%}{{user.first_name}} {{user.last_name}}'s Profile Page at the Django Sandbox{%endblock%}
 {% block content %}
 <p>
@@ -17,10 +27,10 @@ E-Mail: {{user.email}}
 <p>
 
 {% if viewer.is_authenticated and viewer.username == user.username %}
- <a href="/accounts/logout">Logout</a> | <a href="/accounts/profile/{{user.username}}/edit">Edit Details</a> | <a href="/accounts/profile/{{user.username}}/change_password">Change Password</a>
+ <a href="/account/logout">Logout</a> | <a href="/account/profile/{{user.username}}/edit">Edit Details</a> | <a href="/account/profile/{{user.username}}/change_password">Change Password</a>
 {%endif%}
 {% if viewer.is_authenticated and viewer.username != user.username %}
-<a href="/accounts/logout">Logout</a> | <a href="/accounts/profile/{{viewer.username}}">Back to profile</a>
+<a href="/account/logout">Logout</a> | <a href="/account/profile/{{viewer.username}}">Back to profile</a>
 {% else %}
 </p>
 {% endif %}
@@ -28,7 +38,7 @@ E-Mail: {{user.email}}
 Profiles on the Sandbox:
 <ul>
 	{% for others in all_users %}
-	<li><a href="/accounts/profile/{{others.username}}">{{ others.username }}</a></li>
+	<li><a href="/account/profile/{{others.username}}">{{ others.username }}</a></li>
 	{% endfor %}
 </ul>
 

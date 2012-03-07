@@ -1,7 +1,10 @@
 # Django settings for django_sandbox project.
+import os,platform
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -45,12 +48,14 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'D:/Unshared/Python/Python Eclipse workspace/django_sandbox/django_sandbox/tmp'
+#MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static/')
+#MEDIA_ROOT= 'D:/Unshared/Python/Python Eclipse workspace/django_sandbox/django_sandbox/static/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/tmp/'
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -67,6 +72,18 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+ugettext = lambda s: s
+LOGIN_URL = '/%s%s' % (ugettext('account/'), ugettext('signin/'))
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django_authopenid.context_processors.authopenid',
+)
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -98,16 +115,25 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django_authopenid.middleware.OpenIDMiddleware',
 )
 
 ROOT_URLCONF = 'django_sandbox.urls'
 
 TEMPLATE_DIRS = (
-                 'D:/Unshared/Python/Python Eclipse workspace/django_sandbox/django_sandbox/templates'
+                 os.path.join(PROJECT_PATH, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_ACTIVATION_DAYS = 10
+
+OPENID_SREG = {
+    "required": ['fullname', 'country']
+}
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -116,12 +142,23 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django_openid_auth',
+    'registration',
+    'django_authopenid',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
 
+#AUTHENTICATION_BACKENDS=(
+#                        'django_openid_auth.auth.OpenIDBackend',
+#                       'django.contrib.auth.backends.ModelBackend',
+#                         )
+
+#OPENID_CREATE_USERS = True
+#LOGIN_URL = '/openid/login/'
+LOGIN_REDIRECT_URL = '/'
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
@@ -144,3 +181,7 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST='smtp.alwaysdata.com'
+EMAIL_HOST_USER='djangosandbox@alwaysdata.net'
+EMAIL_HOST_PASSWORD='******'

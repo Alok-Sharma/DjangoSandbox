@@ -1,19 +1,25 @@
 from django.shortcuts import render_to_response
-#from django_sandbox.forms import LoginForm
-#from django.contrib import auth
 from django.core.context_processors import csrf
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django_sandbox.forms import DetailsForm,RegisterForm,ChangePassForm
+from django_sandbox.forms import *
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.forms import *
+
+def home(request):
+    form1 = OpenidSigninForm()
+    form2 = AuthenticationForm()
+    return render_to_response("home.html",{
+                               'form1':form1,
+                               'form2':form2},context_instance=RequestContext(request))
 
 def redirect_profile(request):
     if request.user.username:
-        return HttpResponseRedirect('/accounts/profile/'+request.user.username)
+        return HttpResponseRedirect('/account/profile/'+request.user.username)
     else:
-        return HttpResponseRedirect('/accounts/login/')
+        return HttpResponseRedirect('/account/signin/')
 
 def profile_view(request,url_user):
 #    if request.user.is_authenticated():
@@ -38,7 +44,7 @@ def edit_details(request):
                 request.user.last_name=cd['last_name']
                 request.user.email=cd['email']
                 request.user.save()
-                return HttpResponseRedirect('/accounts/profile/')
+                return HttpResponseRedirect('/account/profile/')
         else:
             pre_firstname=request.user.first_name
             pre_lastname=request.user.last_name
@@ -48,7 +54,7 @@ def edit_details(request):
             form=DetailsForm(data)
         return render_to_response('edit_details.html',{'form':form},context_instance=RequestContext(request))
     else:
-        return HttpResponseRedirect('/accounts/login')
+        return HttpResponseRedirect('/account/signin')
     
 def register(request):
     if request.method=='POST':
@@ -61,7 +67,7 @@ def register(request):
             userr.save()
             user=auth.authenticate(username=cd['username'],password=cd['password1'])
             auth.login(request, user)
-            return HttpResponseRedirect('/accounts/profile')
+            return HttpResponseRedirect('/account/profile')
     else:
         form=RegisterForm()
     return render_to_response('registration/register.html',{'form':form},context_instance=RequestContext(request))
@@ -75,7 +81,7 @@ def change_pass(request):
                 if request.user.check_password(cd['old_password']):
                     request.user.set_password(cd['new_password'])
                     request.user.save()
-                    return HttpResponseRedirect('/accounts/profile')
+                    return HttpResponseRedirect('/account/profile')
                 else:
                     err=1
                     form=ChangePassForm()
@@ -84,5 +90,5 @@ def change_pass(request):
             form=ChangePassForm()
         return render_to_response('edit_details.html',{'form':form},context_instance=RequestContext(request))
     else:
-        return HttpResponseRedirect('/accounts/login')
+        return HttpResponseRedirect('/account/signin')
         

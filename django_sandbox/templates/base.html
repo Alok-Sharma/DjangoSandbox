@@ -1,20 +1,75 @@
 <html>
+<link rel="stylesheet" href="{{ MEDIA_URL }}/css/openid.css" />
+<link href="{{MEDIA_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        padding-left: 20px;
+        background-color: F2F2F2;
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 <head>
 	<title>Django Sandbox- {% block title %}{% endblock %}</title>
+	
 </head>
+
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Django Sandbox</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              {% block topbar %}
+              
+              {% endblock %}
+            </ul>
+          </div><!--/.nav-collapse -->
+          {% block userid %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
 <div id="container" style="min-height:100%;position:relative;">
 <div id="header"">
 </div>
 <div id="body" style="padding-bottom:40px" >
-<body bgcolor="#336644" style="font-family:dotum;margin:0;padding:0;height:100%;">
-	<img src="{{MEDIA_URL}}django.png" align="right"/>
-	<h1 style="font-family:dotum;">{% block head %}{%endblock%}</h1>
+<body >
+
+
+	<h1 >{% block head %}{%endblock%}</h1>
 	{% block content %}
 	{% endblock %}
 	<br>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery-1.4.4.min.js"></script>
+
+    	{% block extra_scripts %}{% endblock %}
 </div>
 <div id="footer" style="position:absolute;bottom:0;right:0;height:30px">
-<a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangosite100x25.gif" border="0" alt="A Django site." title="A Django site." /></a></div>
+<a href="http://www.djangoproject.com/"><img src="http://media.djangoproject.com/img/badges/djangoproject120x25_grey.gif" border="0" alt="A Django project." title="A Django project." /></a></div>
 </div>
+<!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{MEDIA_URL}}bootstrap/js/jquery.js"></script>
+    <script src=".{{MEDIA_URL}}bootstrap/js/bootstrap-transition.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-alert.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-modal.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-tab.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-button.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="{{MEDIA_URL}}bootstrap/js/bootstrap-typeahead.js"></script>
 </body>
 </html>

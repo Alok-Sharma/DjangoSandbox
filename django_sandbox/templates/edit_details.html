@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+
+{% if user.is_authenticated %}
+{% block topbar %}
+	<li><a href="/account/logout/">Sign Out</a></li>
+{% endblock topbar %}
+	{% block userid %}
+	<div style="float:right;color:white;margin-top:10px;margin-left:0px">Logged in as <a href="/">{{ user.username }}</a></div>
+	{% endblock userid %}
+{% endif %}
+
 {% block title %}Edit Profile{% endblock %}
 {% block head %} Edit Profile Details {% endblock %}
 

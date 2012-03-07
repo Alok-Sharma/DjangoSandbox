@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+{% endblock %}
+
+{% block topbar %}
+<li><a href="/account/signin/">Sign In</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    <div class="errors">
+        <p>Error while submitting form</p>
+        
+    </div>
+    <br>
+{% endif %}
+
+<h2>Regsiter a new Account</h2>
+<p>Already a user? <a href="{% url user_signin %}">Sign-In</a></p>.
+
+<form action="" method="post">
+{% csrf_token %}    <fieldset>
+	    <legend><b>{% trans "Create a new account" %}</b></legend>
+	    <table>
+		    {{ form.as_table }}
+	    </table>
+	    <p><input type="submit" name="bsignup'" value="{% trans "Sign up" %}"> </p>
+	 </fieldset>
+</form>
+{% endblock %}

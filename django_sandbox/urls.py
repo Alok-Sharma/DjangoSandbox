@@ -2,7 +2,6 @@ from django.conf.urls.defaults import patterns, include, url
 from django_sandbox import views,settings,forms
 from django.contrib.auth.views import login, logout
 from django_authopenid.views import signin, password_change, signout, register
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from registration import views as reg_views 
 admin.autodiscover()

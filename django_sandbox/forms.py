@@ -11,22 +11,23 @@ except ImportError:
 import re
 from registration.models import RegistrationProfile
 attrs_dict = { 'class': 'required' }
-#class OpenidSigninForm(forms.Form):
-#    """ signin form """
-#    openid_url = forms.CharField(max_length=255, 
-#            widget=forms.widgets.TextInput(attrs={'class': 'required openid'}),
-#            label=_("OpenID URL"))
-#    
-#    def clean_openid_url(self):
-#        """ test if openid is accepted """
-#        if 'openid_url' in self.cleaned_data:
-#            openid_url = self.cleaned_data['openid_url']
-#            if xri.identifierScheme(openid_url) == 'XRI' and getattr(
-#                settings, 'OPENID_DISALLOW_INAMES', False
-#                ):
-#                raise forms.ValidationError(_('i-names are not supported'))
-#            return self.cleaned_data['openid_url']
-#
+
+class OpenidSigninForm(forms.Form):
+    """ signin form """
+    openid_url = forms.CharField(max_length=255, 
+            widget=forms.widgets.TextInput(attrs={'class': 'required openid'}),
+            label=_("OpenID URL"))
+    
+    def clean_openid_url(self):
+        """ test if openid is accepted """
+        if 'openid_url' in self.cleaned_data:
+            openid_url = self.cleaned_data['openid_url']
+            if xri.identifierScheme(openid_url) == 'XRI' and getattr(
+                settings, 'OPENID_DISALLOW_INAMES', False
+                ):
+                raise forms.ValidationError(_('i-names are not supported'))
+            return self.cleaned_data['openid_url']
+
 #attrs_dict = { 'class': 'required login' }
 #username_re = re.compile(r'^\w+$')
 #
